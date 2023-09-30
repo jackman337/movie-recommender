@@ -17,4 +17,4 @@ jobs:
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git push --no-verify --force https://sssingh:$HF_TOKEN@huggingface.co/spaces/sssingh/movie-recommender main
+        run: git push --force https://sssingh:$HF_TOKEN@huggingface.co/spaces/sssingh/movie-recommender main
