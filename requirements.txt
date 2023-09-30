@@ -1,0 +1,13 @@
+### Pkgs required to run the streamlit web app
+scikit-learn==1.2.*
+streamlit==1.24.*
+st-pages==0.4.*
+plotly==5.9.*
+pandas==1.5.0
+pyarrow==11.0.*
+
+### uncomment below for local installation, required only for data preprocessing
+#tqdm
+#beautifulsoup4
+#sentence-transformers
+#umap-learn

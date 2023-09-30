@@ -1,0 +1,14 @@
+[[pages]]
+path = "app.py"
+name = "About"
+icon = "👋"
+
+[[pages]]
+path = "explore_movies.py"
+name = "Movie Explorer"
+icon = "🎬"
+
+[[pages]]
+path = "visualize_movies.py"
+name = "Movie Visualizer"
+icon = "🔎"

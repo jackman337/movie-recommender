@@ -1,0 +1,55 @@
+
+* The dataset, which includes English movies released between 2005 and 2022, is a corpus of approximately 3,500 movies "plot" texts collected from Wikipedia. 
+* The text corpus has been encoded using:
+  * [TF-IDF Vectorizer](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html)
+  * [SentenceTransformers (SBERT)](https://www.sbert.net/) embeddings.
+* The application uses the [Cosine Similarity](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.cosine_similarity.html) metric to determine which movies in the corpus have plots that are similar to a given one.
+* The [Uniform Manifold Approximation and Projection for Dimension Reduction (UMAP)](https://umap-learn.readthedocs.io/en/latest/) algorithm is used in the application to reduce SBERT embeddings from 384 dimensions to just 3. The 'plotly' package was used to build the interactive plot.
+
+## Setup and run app locally
+### Create Environment
+Create a conda (or virtual environment), activate the environment. Conda example command is given below: 
+```
+conda create --name <my-env-name>
+conda activate <my-env-name>
+```
+
+### Clone the repo  
+```
+git clone https://github.com/sssingh/movie-recommender
+```
+NOTE: by default TF-IDF embeddings are kept off due to its large size not supported
+by free tier of cloud deployment. However, while running locally it can be switched on
+by making `USE_TFIDF` to `True` in `explore_movies.py`.
+
+### Install the dependencies 
+**NOTE:** In order to run the data-preprocessing locally (described under Supplementary Details) uncomment the packages listed in requirements.txt at the bottom. These are not required for web deployment of the app hence commented in this repo.
+```
+cd movie-recommender
+pip -r requirements.txt
+```
+
+### Run the app
+from within `movie-recommender` folder run the application server:
+```
+streamlit run app.py
+```
+
+open the app in the browser by visiting `http://localhost:8501/`
+
+## Supplementary Details
+### Data Collection
+Wikipedia pages were scraped to gather the raw data. The repository's 'preprocessing/collect_data.py' python script file contains the source code for the data collection script; to run it, to kick-off data-collection again run the command below from the 'preprocessing' folder.:
+```
+python collect_data.py
+```
+
+**NOTE** Depending on your hardware and internet speed, the aforementioned script may take 30 to 60 minutes to execute. The repository contains the curated and prepared raw movie plots dataset `artifacts/movie_plots.parquet`. 
+
+### Data Preprocessing
+* 'TF-IDF' and 'SBERT' embeddings are produced from the above mentioned raw movie plots dataset and the generated embeddings are stored in `artifacts/tfidf_embeddings.parquet` & `artifacts/sbert_embeddings.parquet` files in this repository. 
+* The repository's python script file 'preprocessing/generate_embeddings.py' contains the embedding generation source code. 
+* To generate embeddings again run the command below from inside the folder 'preprocessing' folder.:
+```
+python generate_embeddings.py
+```
